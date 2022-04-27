@@ -60,6 +60,17 @@ export default function App() {
     // 🔥 STEP 6- IMPLEMENT! ON SUCCESS ADD NEWLY CREATED FRIEND TO STATE
     //    helper to [POST] `newFriend` to `http://buddies.com/api/friends`
     //    and regardless of success or failure, the form should reset
+    axios.post("http://buddies.com/api/friends", newFriend)
+      .then(res => {
+        console.log(res);
+      }).catch(err => console.error(err))
+  }
+
+  const validate = (name, value) => {
+    yup.reach(schema, name)
+      .validate(value)
+      .then(() => setFormErrors({ ...formErrors, [name]: "" }))
+      .catch(err => setFormErrors({ ...formErrors, [name]: err.errors[0]}))
   }
 
   //////////////// EVENT HANDLERS ////////////////
@@ -67,6 +78,7 @@ export default function App() {
   //////////////// EVENT HANDLERS ////////////////
   const inputChange = (name, value) => {
     // 🔥 STEP 10- RUN VALIDATION WITH YUP
+    validate(name, value);
     setFormValues({
       ...formValues,
       [name]: value // NOT AN ARRAY
@@ -80,9 +92,26 @@ export default function App() {
       role: formValues.role.trim(),
       civil: formValues.civil.trim(),
       // 🔥 STEP 7- WHAT ABOUT HOBBIES?
+      hobbies: ["hiking", "reading", "coding"].filter(hob => !!formValues[hob])
     }
     // 🔥 STEP 8- POST NEW FRIEND USING HELPER
   }
+
+  /**
+   * !"Casey" => !false => true
+   * !null => !true => false
+   */
+
+  /**
+   * Two ways to access key value pairs in an object in JS?!?!?! -> 
+   *   1.) dot notation -> 
+   *   2.) bracket notation -> string or variable to access values
+   */
+
+  /**
+   * map, filter, reduce => higher order functions!
+   * they all return a NEW array
+   */
 
   //////////////// SIDE EFFECTS ////////////////
   //////////////// SIDE EFFECTS ////////////////

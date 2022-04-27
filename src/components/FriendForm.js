@@ -49,7 +49,7 @@ export default function FriendForm(props) {
             value={values.username}
             onChange={onChange}
             name='username'
-            type='number'
+            type='text'
           />
         </label>
 
